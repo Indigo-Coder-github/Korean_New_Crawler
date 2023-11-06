@@ -1,0 +1,2 @@
+class SynonymClass:
+   pass 
