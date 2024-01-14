@@ -66,12 +66,4 @@ It provides crawling Chosun Ilbo.
           </sub>
         </a><br>
       </td>
-      <td align="center" valign="top" width="14.28%">
-        <a href=https://github.com/ku9278>
-          <img src="https://avatars.githubusercontent.com/u/120108197?v=4" width="100px;" alt="Indigo_Coder"/><br>
-          <sub>
-            <b> ku9278 </b>
-          </sub>
-        </a><br>
-      </td>
     </tr>
