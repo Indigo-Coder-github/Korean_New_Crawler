@@ -48,14 +48,14 @@ class Chosun(News):
         #sleep
         if type(self.delay_time) == float: sleep(self.delay_time)
         elif type(self.delay_time) == tuple: sleep(float(randint(self.delay_time[0], self.delay_time[1])))
+        elif self.delay_time == None: pass
         else: raise TypeError("You must give delay_time float or tuple type.")
         
-        if file_dir.is_file():
+        if file_dir.is_file() and self.saving_html:
             #call file
             with open(file_dir.name, "r", encoding="UTF-8") as f:
                 html_file = f.read()
-                return self._static_crawl(html_file)
-                
+                return self._parse_html(html_file)
         else:
             #call url
             driver = Chrome(options=options)
@@ -79,7 +79,7 @@ class Chosun(News):
     def static_crawl(self, url: str | list) -> list:
         raise Exception("This site blocks bot. We are trying to find the way.")
     
-    def _static_crawl(self, html: str) -> str:
+    def _parse_html(self, html: str) -> str:
         soup = bs(html, "lxml")
         article = str()
         for i in soup.find_all("p", "article-body__content article-body__content-text | text--black text font--size-sm-18 font--size-md-18 font--primary"):
