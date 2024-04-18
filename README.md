@@ -65,8 +65,8 @@ It provides crawling Chosun Ilbo.
 
 |**Methods**|**Description**|
 |:-:|:-|
-|[dynamic_crawl(url)](`dynamic_crawl(url)`)|Return article text using Selenium.|
-|[static_crawl(url)](`static_crawl(url)`)|Return article text using BeautifulSoup.|
+|[dynamic_crawl(url)](##### `dynamic_crawl(url)`)|Return article text using Selenium.|
+|[static_crawl(url)](##### `static_crawl(url)`)|Return article text using BeautifulSoup.|
 
 ##### `dynamic_crawl(url)`
 
