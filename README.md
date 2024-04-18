@@ -8,53 +8,8 @@ This is Python library for crawling articles from Korean Top 10 Newspaper sites 
 We're greeting to join you as contibutors, collaborator. Thanks to give me contact.  
 The copyright of articles are belong to original media company. We don't take any legal responsibility using of them. We assume that you have agreed to this.  
 
-# Quick Usage
+## Contibutors
 
-```python
-from korean_news_crawler import chosun
-
-chosun = Chosun()
-print(chosun.dynamic_crawl("https://www.chosun.com/..."))
-
-chosun_url_list = list()#Chosun ILbo url list
-print(chosun.dynamic_crawl(chosun_url_list))
-```
-
-# API
-## `class korean_new_crawler.chosun.Chosun(delay_time=None, saving_html=False)`  
-It provides crawling Chosun Ilbo.
-
-### Parameters
-#### delay_time `float | tuple`
-- Optional, Defaults to None.
-- When 'delay_time=float', it will crawl sites with delay.
-- When 'delay_time=tuple', it will crawl sites with random delay.
-
-#### saving_html `bool`
-- Optional, Defaults to False.
-- When 'saving_html=False', it always requests url every function calling.
-- When 'saving_html=True', It will save requested html only first time. After that, it calls saved html. This will help to alleviate server load.
-
-### Methods
-#### `dynamic_crawl(url)`
-- Return article text using Selenium.
-#### Parameters
-##### url `str | list`
-- When 'url=str', it will only crawl given url.
-- When 'url=list', it will crawl with iterating url list.
-#### Return `list`
-- Return article list.
-
-#### `static_crawl(url)`
-- Return article text using BeautifulSoup.
-#### Parameters
-##### url `str | list`
-- When 'url=str', it will only crawl given url.
-- When 'url=list', it will crawl with iterating url list.
-#### Return `list`
-- Return article list.
-
-# Contibutors
 <table>
   <tbody>
     <tr>
@@ -67,3 +22,72 @@ It provides crawling Chosun Ilbo.
         </a><br>
       </td>
     </tr>
+  </tbody>
+</table>
+
+## Installation
+
+` pip install korean_news_crawler `
+
+## Quick Usage
+
+```python
+from korean_news_crawler import chosun
+
+chosun = Chosun()
+print(chosun.dynamic_crawl("https://www.chosun.com/..."))
+
+chosun_url_list = list() #Chosun ILbo url list
+print(chosun.dynamic_crawl(chosun_url_list))
+```
+
+## API
+
+### `korean_news_crawler.Chosun(delay_time=None, saving_html=False)`
+
+It provides crawling Chosun Ilbo.
+
+#### Parameters
+
+|**Parameters**|**Type**|**Description**|
+|:-:|:-:|:-|
+|**delay_time**|**float or tuple**|- Optional, Defaults to None.</br>- When 'delay_time=float', it will crawl sites with delay.</br>- When 'delay_time=tuple', it will crawl sites with random delay.|
+|**saving_html**|**bool**|- Optional, Defaults to False.</br>- When 'saving_html=False', it always requests url every function calling.</br>- When 'saving_html=True', It will save requested html only first time. After that, it calls saved html. This will help to alleviate server load.|
+
+#### Attributes
+
+|**Attributes**|**Type**|**Description**|
+|:-:|:-:|:-|
+|**delay_time**|**float or tuple**||
+|**saving_html**|**bool**||
+
+#### Methods
+
+|**Methods**|**Description**|
+|:-:|:-|
+|[dynamic_crawl(url)](`dynamic_crawl(url)`)|Return article text using Selenium.|
+|[static_crawl(url)](`static_crawl(url)`)|Return article text using BeautifulSoup.|
+
+##### `dynamic_crawl(url)`
+
+- Return article text using Selenium.
+
+|**Parameters**|**Type**|**Description**|
+|:-:|:-:|:-|
+|**url**|**str or list**|- When 'url=str', it will only crawl given url.</br>- When 'url=list', it will crawl with iterating url list.|
+
+|**Returns Type**|**Description**|
+|:-:|:-|
+|**list**|Return article list.|
+
+##### `static_crawl(url)`
+
+- Return article text using BeautifulSoup.
+
+|**Parameters**|**Type**|**Description**|
+|:-:|:-:|:-|
+|**url**|**str or list**|- When 'url=str', it will only crawl given url.</br>- When 'url=list', it will crawl with iterating url list.|
+
+|**Returns Type**|**Description**|
+|:-:|:-|
+|**list**|Return article list.|
