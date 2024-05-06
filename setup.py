@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="UTF-8") as f:
 
 setuptools.setup(
     name="korean_news_crawler",
-    version="1.0.1",
+    version="1.0.5",
     long_description=long_description,
     long_description_content_type="text/markdown",
     description="Python Library for Crawling Top 10 Korean News and Providing Synonym Dictionary",
@@ -23,7 +23,5 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
     ],
-    package_dir={"": "src"},
-    packages=setuptools.find_packages(where="src"),
     python_requires=">=3.8",
 )
