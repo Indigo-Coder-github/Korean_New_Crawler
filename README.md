@@ -1,3 +1,5 @@
+<a href="https://pypi.org/project/korean-news-crawler/" target="_blank"><img src="https://img.shields.io/badge/PyPI 1.0.1-3775A9?style=plastic&logo=PyPI&logoColor=FFFFFF"/></a>
+
 # Korean_News_Crawler
 
 한국 10대 일간지 크롤링 및 유사어 사전 제공 Python 라이브러리입니다. 아직 PyPI에 정식등록되진 않은 beta 버전입니다.  
