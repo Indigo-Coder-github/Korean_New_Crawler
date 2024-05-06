@@ -10,3 +10,10 @@ src/__pycache__/naeil.cpython-310.pyc
 src/__pycache__/news.cpython-310.pyc
 src/__pycache__/segye.cpython-310.pyc
 src/__pycache__/seoul.cpython-310.pyc
+dist/korean_news_crawler-1.0.0-py3-none-any.whl
+dist/korean_news_crawler-1.0.0.tar.gz
+src/korean_news_crawler.egg-info/dependency_links.txt
+src/korean_news_crawler.egg-info/PKG-INFO
+src/korean_news_crawler.egg-info/requires.txt
+src/korean_news_crawler.egg-info/SOURCES.txt
+src/korean_news_crawler.egg-info/top_level.txt

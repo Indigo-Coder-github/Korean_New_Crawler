@@ -1,8 +1,12 @@
 import setuptools
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setuptools.setup(
     name="korean_news_crawler",
     version="1.0.0",
+    long_description=long_description,
     author="Indigo-Coder",
     author_email="hjs40111@gmail.com",
     description="Python Library for Crawling Top 10 Korean News and Providing Synonym Dictionary",
