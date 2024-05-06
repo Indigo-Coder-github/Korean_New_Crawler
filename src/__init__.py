@@ -2,7 +2,7 @@ from .chosun import Chosun
 from .donga import Donga
 from .hankook import Hankook
 from .hankyoreh import Hankyoreh
-from .joonang import Joonang
+from .joongang import Joongang
 from .kukmin import Kukmin
 from .munhwa import Munhwa
 from .naeil import Naeil

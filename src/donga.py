@@ -16,38 +16,19 @@ class Donga(News):
     def __init__(self, delay_time=None, saving_html=False):
         super().__init__(delay_time, saving_html)
     
-    def dynamic_crawl(self, url: str | list) -> list:
-        """
-        Return News Text Using Selenium.
-        The url must be started with "https://www.donga.com/"
-
-        Args:
-            url (str | list):
-                When 'url=str', it will only crawl given url.
-                When 'url=list', it will crawl with iterating url list.
-
-        Returns:
-            list: Return article texts.
-        """        
-        
-        if type(url) == str:
-            return [self._dynamic_crawl(url)]
-        elif type(url) == list:
-            return [self._dynamic_crawl(url_str) for url_str in url]
-        else: raise TypeError("You must give url string or list type.")
-    
     def _dynamic_crawl(self, url: str) -> str:
-        assert "https://www.donga.com/" in url, "Given url does not seem to be from donga.com"
-        file_dir = Path("/donga/{}.html".format(url[22:]))
+        assert url.startswith("https://www.donga.com/"), "Given url does not seem to be from donga.com"
+        file_dir = Path("/donga/{}.html".format(url[len("https://www.donga.com/"):]))
         
         #set chrome option
         options = webdriver.ChromeOptions()
-        options.add_argument('Chrome/117.0.0.0')
+        options.add_argument('Chrome/123.0.6312.122')
+        options.add_argument('log-level=3')
         options.add_argument("headless")
         
         #sleep
-        if type(self.delay_time) == float: sleep(self.delay_time)
-        elif type(self.delay_time) == tuple: sleep(float(randint(self.delay_time[0], self.delay_time[1])))
+        if isinstance(self.delay_time, float): sleep(self.delay_time)
+        elif isinstance(self.delay_time, tuple): sleep(float(randint(self.delay_time[0], self.delay_time[1])))
         elif self.delay_time == None: pass
         else: raise TypeError("You must give delay_time float or tuple type.")
         
@@ -65,45 +46,21 @@ class Donga(News):
                     f.write(driver.page_source)
                     
             #crawl line by line
-            line = 1
             article = str()
-            while True:
-                try:
-                    article += (driver.find_element(By.XPATH, '//*[@id="article_txt"]/text()[{}]'.format(line)).text + "\n")
-                    line += 1
-                except: break
+            try:
+                article += (driver.find_element(By.XPATH, '//*[@id="contents"]/div[2]/div/div[1]/section[1]').text + "\n")
+            except: pass
             driver.quit()
             
             return article
-    
-    def static_crawl(self, url: str | list) -> list:
-        
-        """
-        Return News Text Using BeautifulSoup.
-        The url must be started with "https://www.donga.com/"
-        
-        Args:
-            url (str | list):
-                When 'url=str', it will only crawl given url.
-                When 'url=list', it will crawl with iterating url list.
-
-        Returns:
-            list: Return article texts.
-        """
-
-        if type(url) == str:
-            return [self._static_crawl(url)]
-        elif type(url) == list:
-            return [self._static_crawl(url_str) for url_str in url]
-        else: raise TypeError("You must give url string or list type.")
             
     def _static_crawl(self, url: str) -> str:      
         assert "https://www.donga.com/" in url, "Given url does not seem to be from donga.com"
         file_dir = Path("/donga/{}.html".format(url[22:]))
         
         #sleep
-        if type(self.delay_time) == float: sleep(self.delay_time)
-        elif type(self.delay_time) == tuple: sleep(float(randint(self.delay_time[0], self.delay_time[1])))
+        if isinstance(self.delay_time, float): sleep(self.delay_time)
+        elif isinstance(self.delay_time, tuple): sleep(float(randint(self.delay_time[0], self.delay_time[1])))
         elif self.delay_time == None: pass
         else: raise TypeError("You must give delay_time float or tuple type.")
         
@@ -112,7 +69,7 @@ class Donga(News):
             with open(file_dir.name, "r", encoding="UTF-8") as f:
                 html_file = f.read()
                 parsed_html = self._parse_html(html_file)
-                return super().clean_text(parsed_html)
+                return parsed_html
         else:
             #call url
             req = get(url, verify=False)
@@ -123,6 +80,14 @@ class Donga(News):
     
     def _parse_html(self, html: str) -> str:
         soup = bs(html, "lxml")
-        text_list = [i.text for i in soup.find("div", {"id":"article_txt"}).find_all("div")]
+        text_list = [i.text for i in soup.find("section", "news_view")]
         
         return super().clean_text(text_list)
+    
+if __name__ == "__main__":
+    donga_article_url = donga_article_url = "https://www.donga.com/news/Politics/article/all/20240418/124537818/2"
+    donga = Donga()
+    donga_dynamic_article = donga.dynamic_crawl(donga_article_url)
+    donga_static_article = donga.static_crawl(donga_article_url)
+    print(donga_dynamic_article[0])
+    print(donga_static_article[0])

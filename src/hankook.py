@@ -16,39 +16,19 @@ class Hankook(News):
     def __init__(self, delay_time=None, saving_html=False):
         super().__init__(delay_time, saving_html)
     
-    def dynamic_crawl(self, url: str | list) -> list:
-        
-        """
-        Return News Text Using Selenium.
-        The url must be started with "https://www.hankookilbo.com/News/Read"
-        
-        Args:
-            url (str | list):
-                When 'url=str', it will only crawl given url.
-                When 'url=list', it will crawl with iterating url list.
-
-        Returns:
-            list: Return article texts.
-        """
-        
-        if type(url) == str:
-            return [self._dynamic_crawl(url)]
-        elif type(url) == list:
-            return [self._dynamic_crawl(url_str) for url_str in url]
-        else: raise TypeError("You must give url string or list type.")
-    
     def _dynamic_crawl(self, url: str) -> str:
-        assert "https://www.hankookilbo.com/News/Read" in url, "Given url does not seem to be from hankookilbo.com"
+        assert url.startswith("https://www.hankookilbo.com/News/Read"), "Given url does not seem to be from hankookilbo.com"
         file_dir = Path("/hankook/{}.html".format(url[36:]))
         
         #set chrome option
         options = webdriver.ChromeOptions()
-        options.add_argument('Chrome/117.0.0.0')
+        options.add_argument('Chrome/123.0.6312.122')
+        options.add_argument('log-level=3')
         options.add_argument("headless")
         
         #sleep
-        if type(self.delay_time) == float: sleep(self.delay_time)
-        elif type(self.delay_time) == tuple: sleep(float(randint(self.delay_time[0], self.delay_time[1])))
+        if isinstance(self.delay_time, float): sleep(self.delay_time)
+        elif isinstance(self.delay_time, tuple): sleep(float(randint(self.delay_time[0], self.delay_time[1])))
         elif self.delay_time == None: pass
         else: raise TypeError("You must give delay_time float or tuple type.")
         
@@ -70,39 +50,20 @@ class Hankook(News):
             article = str()
             while True:
                 try:
-                    article += (driver.find_element(By.XPATH, '/html/body/div[2]/div[1]/div[4]/div/div[1]/p[{}]'.format(line)).text + "\n")
+                    article += (driver.find_element(By.XPATH, f'/html/body/div[2]/div[1]/div[4]/div/div[1]/p[{line}]').text + "\n")
                     line += 1
                 except: break
             driver.quit()
             
             return article
     
-    def static_crawl(self, url: str | list) -> list:
-        """
-        Return News Text Using BeautifulSoup.
-        The url must be started with "https://www.hankookilbo.com/News/Read"
-        
-        Args:
-            url (str | list):
-                When 'url=str', it will only crawl given url.
-                When 'url=list', it will crawl with iterating url list.
-
-        Returns:
-            list: Return article texts.
-        """
-        if type(url) == str:
-            return [self._static_crawl(url)]
-        elif type(url) == list:
-            return [self._static_crawl(url_str) for url_str in url]
-        else: raise TypeError("You must give url string or list type.")
-    
     def _static_crawl(self, url: str) -> str:
         assert "https://www.hankookilbo.com/News/Read/" in url, "Given url does not seem to be from hankookilbo.com"
-        file_dir = Path("/donga/{}.html".format(url[22:]))
+        file_dir = Path("/donga/{}.html".format(url[len("https://www.hankookilbo.com/News/Read/"):]))
         
         #sleep
-        if type(self.delay_time) == float: sleep(self.delay_time)
-        elif type(self.delay_time) == tuple: sleep(float(randint(self.delay_time[0], self.delay_time[1])))
+        if isinstance(self.delay_time, float): sleep(self.delay_time)
+        elif isinstance(self.delay_time, tuple): sleep(float(randint(self.delay_time[0], self.delay_time[1])))
         elif self.delay_time == None: pass
         else: raise TypeError("You must give delay_time float or tuple type.")
         
@@ -111,7 +72,7 @@ class Hankook(News):
             with open(file_dir.name, "r", encoding="UTF-8") as f:
                 html_file = f.read()
                 parsed_html = self._parse_html(html_file)
-                return super().clean_text(parsed_html)
+                return parsed_html
         else:
             #call url
             req = get(url, verify=False)
@@ -123,4 +84,13 @@ class Hankook(News):
     def _parse_html(self, html: str) -> str:
         soup = bs(html, "lxml")
         text_list = [i.text for i in soup.find_all("p", {"class":"editor-p"}) if i is not None]
+        
         return super().clean_text(text_list)
+    
+if __name__ == "__main__":
+    hankook_article_url = "https://www.hankookilbo.com/News/Read/A2024041813530002558"
+    hankook = Hankook()
+    hankook_dynamic_article = hankook.dynamic_crawl(hankook_article_url)
+    hankook_static_article = hankook.static_crawl(hankook_article_url)
+    print(hankook_dynamic_article[0])
+    print(hankook_static_article[0])

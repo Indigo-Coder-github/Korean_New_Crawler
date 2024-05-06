@@ -1,2 +1,12 @@
-src/test.py
 .vscode/settings.json
+src/__pycache__/chosun.cpython-310.pyc
+src/__pycache__/donga.cpython-310.pyc
+src/__pycache__/hankook.cpython-310.pyc
+src/__pycache__/hankyoreh.cpython-310.pyc
+src/__pycache__/joongang.cpython-310.pyc
+src/__pycache__/kukmin.cpython-310.pyc
+src/__pycache__/munhwa.cpython-310.pyc
+src/__pycache__/naeil.cpython-310.pyc
+src/__pycache__/news.cpython-310.pyc
+src/__pycache__/segye.cpython-310.pyc
+src/__pycache__/seoul.cpython-310.pyc
