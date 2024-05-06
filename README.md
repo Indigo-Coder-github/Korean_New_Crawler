@@ -2,7 +2,8 @@
 
 # Korean_News_Crawler
 
-한국 10대 일간지 크롤링 및 유사어 사전 제공 Python 라이브러리입니다. 아직 PyPI에 정식등록되진 않은 beta 버전입니다.  
+한국 10대 일간지 크롤링 및 유사어 사전 제공 Python 라이브러리입니다.  
+기사에 대한 모든 저작권은 해당 언론사에 속해있습니다. 저희는 이에 대한 어떠한 법적인 책임을 지지 않으며 사용자는 이에 동의하는 것으로 간주합니다.  
 Open Source Project로 기여자, 참여자 상시 모집하고 있습니다. 연락주시면 감사하겠습니다.  
   
 This is Python library for crawling articles from Korean Top 10 Newspaper sites and providing synonym dictionary.  
